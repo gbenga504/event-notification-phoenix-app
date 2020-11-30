@@ -7,6 +7,8 @@ defmodule NotificationApiWeb.Router do
 
   scope "/api", NotificationApiWeb do
     pipe_through :api
+
+    resources "/users", UserController, only: [:index, :create]
   end
 
   # Enables LiveDashboard only for development
