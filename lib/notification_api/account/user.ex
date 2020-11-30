@@ -25,6 +25,12 @@ defmodule NotificationApi.Account.User do
     user
     |> cast(attrs, [:email, :phone_number, :notification_via, :country, :state])
     |> validate_required([:notification_via, :country])
-    |> validate_inclusion(:notification_via, [notification_via_values.email, notification_via_values.sms, notification_via_values.whatsapp])
+    |> validate_inclusion(:notification_via, [
+      notification_via_values.email,
+      notification_via_values.sms,
+      notification_via_values.whatsapp
+    ])
+    |> validate_format(:email, ~r/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
+    |> validate_format(:phone_number, ~r/^\+?\d{11,13}$/)
   end
 end

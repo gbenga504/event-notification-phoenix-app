@@ -101,4 +101,26 @@ defmodule NotificationApi.Account do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+  def validate_notification_via(
+        notification_via,
+        email,
+        phone_number
+      ) do
+    notification_via_values = User.get_notification_via_values()
+
+    cond do
+      notification_via == notification_via_values.email && not is_nil(email) ->
+        {:ok, true}
+
+      notification_via == notification_via_values.sms && not is_nil(phone_number) ->
+        {:ok, true}
+
+      notification_via == notification_via_values.whatsapp && not is_nil(phone_number) ->
+        {:ok, true}
+
+      true ->
+        {:error, :bad_request}
+    end
+  end
 end
