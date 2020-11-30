@@ -32,5 +32,7 @@ defmodule NotificationApi.Account.User do
     ])
     |> validate_format(:email, ~r/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
     |> validate_format(:phone_number, ~r/^\+?\d{11,13}$/)
+    |> unique_constraint(:email)
+    |> unique_constraint(:phone_number)
   end
 end

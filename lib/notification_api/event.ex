@@ -101,4 +101,100 @@ defmodule NotificationApi.Event do
   def change_category(%Category{} = category, attrs \\ %{}) do
     Category.changeset(category, attrs)
   end
+
+  alias NotificationApi.Event.Hangout
+
+  @doc """
+  Returns the list of hangouts.
+
+  ## Examples
+
+      iex> list_hangouts()
+      [%Hangout{}, ...]
+
+  """
+  def list_hangouts do
+    Repo.all(Hangout)
+  end
+
+  @doc """
+  Gets a single hangout.
+
+  Raises `Ecto.NoResultsError` if the Hangout does not exist.
+
+  ## Examples
+
+      iex> get_hangout!(123)
+      %Hangout{}
+
+      iex> get_hangout!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_hangout!(id), do: Repo.get!(Hangout, id)
+
+  @doc """
+  Creates a hangout.
+
+  ## Examples
+
+      iex> create_hangout(%{field: value})
+      {:ok, %Hangout{}}
+
+      iex> create_hangout(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_hangout(attrs \\ %{}) do
+    %Hangout{}
+    |> Hangout.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a hangout.
+
+  ## Examples
+
+      iex> update_hangout(hangout, %{field: new_value})
+      {:ok, %Hangout{}}
+
+      iex> update_hangout(hangout, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_hangout(%Hangout{} = hangout, attrs) do
+    hangout
+    |> Hangout.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a hangout.
+
+  ## Examples
+
+      iex> delete_hangout(hangout)
+      {:ok, %Hangout{}}
+
+      iex> delete_hangout(hangout)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_hangout(%Hangout{} = hangout) do
+    Repo.delete(hangout)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking hangout changes.
+
+  ## Examples
+
+      iex> change_hangout(hangout)
+      %Ecto.Changeset{data: %Hangout{}}
+
+  """
+  def change_hangout(%Hangout{} = hangout, attrs \\ %{}) do
+    Hangout.changeset(hangout, attrs)
+  end
 end

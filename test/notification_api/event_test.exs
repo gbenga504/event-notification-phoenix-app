@@ -65,4 +65,69 @@ defmodule NotificationApi.EventTest do
       assert %Ecto.Changeset{} = Event.change_category(category)
     end
   end
+
+  describe "hangouts" do
+    alias NotificationApi.Event.Hangout
+
+    @valid_attrs %{country: "some country", link: "some link", message: "some message", state: "some state"}
+    @update_attrs %{country: "some updated country", link: "some updated link", message: "some updated message", state: "some updated state"}
+    @invalid_attrs %{country: nil, link: nil, message: nil, state: nil}
+
+    def hangout_fixture(attrs \\ %{}) do
+      {:ok, hangout} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Event.create_hangout()
+
+      hangout
+    end
+
+    test "list_hangouts/0 returns all hangouts" do
+      hangout = hangout_fixture()
+      assert Event.list_hangouts() == [hangout]
+    end
+
+    test "get_hangout!/1 returns the hangout with given id" do
+      hangout = hangout_fixture()
+      assert Event.get_hangout!(hangout.id) == hangout
+    end
+
+    test "create_hangout/1 with valid data creates a hangout" do
+      assert {:ok, %Hangout{} = hangout} = Event.create_hangout(@valid_attrs)
+      assert hangout.country == "some country"
+      assert hangout.link == "some link"
+      assert hangout.message == "some message"
+      assert hangout.state == "some state"
+    end
+
+    test "create_hangout/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Event.create_hangout(@invalid_attrs)
+    end
+
+    test "update_hangout/2 with valid data updates the hangout" do
+      hangout = hangout_fixture()
+      assert {:ok, %Hangout{} = hangout} = Event.update_hangout(hangout, @update_attrs)
+      assert hangout.country == "some updated country"
+      assert hangout.link == "some updated link"
+      assert hangout.message == "some updated message"
+      assert hangout.state == "some updated state"
+    end
+
+    test "update_hangout/2 with invalid data returns error changeset" do
+      hangout = hangout_fixture()
+      assert {:error, %Ecto.Changeset{}} = Event.update_hangout(hangout, @invalid_attrs)
+      assert hangout == Event.get_hangout!(hangout.id)
+    end
+
+    test "delete_hangout/1 deletes the hangout" do
+      hangout = hangout_fixture()
+      assert {:ok, %Hangout{}} = Event.delete_hangout(hangout)
+      assert_raise Ecto.NoResultsError, fn -> Event.get_hangout!(hangout.id) end
+    end
+
+    test "change_hangout/1 returns a hangout changeset" do
+      hangout = hangout_fixture()
+      assert %Ecto.Changeset{} = Event.change_hangout(hangout)
+    end
+  end
 end
