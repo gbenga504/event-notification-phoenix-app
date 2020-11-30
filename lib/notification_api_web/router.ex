@@ -9,6 +9,7 @@ defmodule NotificationApiWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, only: [:index, :create]
+    resources "/categories", CategoryController, only: [:index, :create, :show]
   end
 
   # Enables LiveDashboard only for development
