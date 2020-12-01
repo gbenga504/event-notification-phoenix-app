@@ -3,18 +3,29 @@ defmodule NotificationApiWeb.HangoutView do
   alias NotificationApiWeb.HangoutView
 
   def render("index.json", %{hangouts: hangouts}) do
-    %{data: render_many(hangouts, HangoutView, "hangout.json")}
+    %{
+      status: true,
+      message: "Hangouts loaded successfully",
+      data: render_many(hangouts.data, HangoutView, "hangout.json"),
+      meta: hangouts.meta
+    }
   end
 
-  def render("show.json", %{hangout: hangout}) do
-    %{data: render_one(hangout, HangoutView, "hangout.json")}
+  def render("create.json", %{hangout: hangout}) do
+    %{
+      status: true,
+      message: "Hangout created successfully",
+      data: render_one(hangout, HangoutView, "hangout.json")
+    }
   end
 
   def render("hangout.json", %{hangout: hangout}) do
-    %{id: hangout.id,
+    %{
+      id: hangout.id,
       country: hangout.country,
       state: hangout.state,
       message: hangout.message,
-      link: hangout.link}
+      link: hangout.link
+    }
   end
 end

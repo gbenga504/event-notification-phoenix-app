@@ -18,8 +18,8 @@ defmodule NotificationApi.Event.Hangout do
   @doc false
   def changeset(hangout, attrs) do
     hangout
-    |> cast(attrs, [:country, :state, :message, :link])
-    |> validate_required([:country, :state, :message, :link])
+    |> cast(attrs, [:country, :state, :message, :link, :category_id])
+    |> validate_required([:country, :state, :message, :link, :category_id])
     |> unique_constraint(:link)
     |> validate_length(:message, min: 3, max: 150)
     |> assoc_constraint(:category)

@@ -113,8 +113,18 @@ defmodule NotificationApi.Event do
       [%Hangout{}, ...]
 
   """
-  def list_hangouts do
-    Repo.all(Hangout)
+  def list_hangouts(params) do
+    category_id = Map.get(params, "category_id", nil)
+
+    Hangout
+    |> get_hangouts_by_category_id(category_id)
+    |> NotificationApi.Pagination.paginate(params)
+  end
+
+  def get_hangouts_by_category_id(query, nil), do: query
+
+  def get_hangouts_by_category_id(query, category_id) do
+    from hangout in query, where: hangout.category_id == ^category_id
   end
 
   @doc """

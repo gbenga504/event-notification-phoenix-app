@@ -17,7 +17,6 @@ defmodule NotificationApiWeb.UserController do
 
     with {:ok, true} <- Account.validate_notification_via(notification_via, email, phone_number),
          {:ok, %User{} = user} <- Account.create_user(user_params) do
-      # start a seperate process that inserts the categories into the link table
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.user_path(conn, :create, user))

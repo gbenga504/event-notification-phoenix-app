@@ -10,6 +10,7 @@ defmodule NotificationApi.Account.User do
     field :notification_via, :string
     field :phone_number, :string
     field :state, :string
+    field :categories, {:array, Ecto.UUID}
 
     timestamps()
   end
@@ -23,8 +24,8 @@ defmodule NotificationApi.Account.User do
     notification_via_values = get_notification_via_values()
 
     user
-    |> cast(attrs, [:email, :phone_number, :notification_via, :country, :state])
-    |> validate_required([:notification_via, :country])
+    |> cast(attrs, [:email, :phone_number, :notification_via, :country, :state, :categories])
+    |> validate_required([:notification_via, :country, :categories])
     |> validate_inclusion(:notification_via, [
       notification_via_values.email,
       notification_via_values.sms,

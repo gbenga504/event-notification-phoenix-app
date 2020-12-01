@@ -10,6 +10,7 @@ defmodule NotificationApiWeb.Router do
 
     resources "/users", UserController, only: [:index, :create]
     resources "/categories", CategoryController, only: [:index, :create, :show]
+    resources "/hangouts", HangoutController, only: [:index, :show, :create]
   end
 
   # Enables LiveDashboard only for development
