@@ -14,10 +14,14 @@ defmodule NotificationApiWeb.HangoutController do
   def create(conn, hangout_params) do
     with {:ok, %Hangout{} = hangout} <- Event.create_hangout(hangout_params) do
       # send a message to a Genserver process that sends out the notification
+      NotificationApi.Notifier.WorkerSupervisor.add(hangout)
+
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.hangout_path(conn, :show, hangout))
       |> render("create.json", hangout: hangout)
+    else
+      {:error, error} -> {:error, error, "Failed to create user"}
     end
   end
 

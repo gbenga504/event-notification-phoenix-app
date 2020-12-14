@@ -117,13 +117,13 @@ defmodule NotificationApi.Event do
     category_id = Map.get(params, "category_id", nil)
 
     Hangout
-    |> get_hangouts_by_category_id(category_id)
+    |> hangouts_category_query(category_id)
     |> NotificationApi.Pagination.paginate(params)
   end
 
-  def get_hangouts_by_category_id(query, nil), do: query
+  def hangouts_category_query(query, nil), do: query
 
-  def get_hangouts_by_category_id(query, category_id) do
+  def hangouts_category_query(query, category_id) do
     from hangout in query, where: hangout.category_id == ^category_id
   end
 

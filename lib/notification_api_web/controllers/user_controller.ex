@@ -12,15 +12,15 @@ defmodule NotificationApiWeb.UserController do
   end
 
   def create(conn, user_params) do
-    %{"notification_via" => notification_via, "email" => email, "phone_number" => phone_number} =
-      user_params
+    notification_via = Map.get(user_params, "notification_via")
+    email = Map.get(user_params, "email")
+    phone_number = Map.get(user_params, "phone_number")
 
     with {:ok, true} <- Account.validate_notification_via(notification_via, email, phone_number),
          {:ok, %User{} = user} <- Account.create_user(user_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.user_path(conn, :create, user))
-      |> render("create.json", user: user)
+      |> render("show.json", user: user)
     else
       {:error, error} -> {:error, error, "Failed to create user"}
     end

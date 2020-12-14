@@ -102,6 +102,24 @@ defmodule NotificationApi.Account do
     User.changeset(user, attrs)
   end
 
+  def get_users_for_hangout(category_id, country, state) do
+    User
+    |> users_category_query(category_id)
+    |> users_location_query(country, state)
+    |> Repo.all()
+  end
+
+  def users_location_query(query, country, state) do
+    from u in query,
+      where: ^country == u.country and (^state == u.state or is_nil(u.state)),
+      select: [:notification_via, :email, :phone_number]
+  end
+
+  def users_category_query(query, category_id) do
+    from u in query,
+      where: ^category_id in u.categories
+  end
+
   def validate_notification_via(
         notification_via,
         email,

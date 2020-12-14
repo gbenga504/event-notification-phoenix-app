@@ -1,6 +1,7 @@
 use Mix.Config
 
 database_url = System.get_env("DATABASE_URL")
+sendgrid_api_key = System.get_env("SENDGRID_API_KEY")
 
 # Configure your database
 config :notification_api, NotificationApi.Repo,
@@ -24,6 +25,10 @@ config :notification_api, NotificationApiWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: []
+
+config :notification_api, NotificationApi.Notifier.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  api_key: sendgrid_api_key
 
 # ## SSL Support
 #

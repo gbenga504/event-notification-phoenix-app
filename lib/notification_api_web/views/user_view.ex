@@ -10,14 +10,6 @@ defmodule NotificationApiWeb.UserView do
     }
   end
 
-  def render("create.json", %{user: user}) do
-    %{
-      status: true,
-      message: "User created successfully",
-      data: render_one(user, UserView, "user.json")
-    }
-  end
-
   def render("show.json", %{user: user}) do
     %{
       status: true,

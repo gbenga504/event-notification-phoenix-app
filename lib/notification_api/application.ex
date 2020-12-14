@@ -14,7 +14,9 @@ defmodule NotificationApi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: NotificationApi.PubSub},
       # Start the Endpoint (http/https)
-      NotificationApiWeb.Endpoint
+      NotificationApiWeb.Endpoint,
+      # Start the notification system
+      NotificationApi.Notifier.WorkerSupervisor
       # Start a worker by calling: NotificationApi.Worker.start_link(arg)
       # {NotificationApi.Worker, arg}
     ]

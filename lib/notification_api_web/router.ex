@@ -5,7 +5,7 @@ defmodule NotificationApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", NotificationApiWeb do
+  scope "/api/v1", NotificationApiWeb do
     pipe_through :api
 
     resources "/users", UserController, only: [:index, :create]
