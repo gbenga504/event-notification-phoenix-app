@@ -5,8 +5,12 @@ defmodule NotificationApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", NotificationApiWeb do
+  scope "/api/v1", NotificationApiWeb do
     pipe_through :api
+
+    resources "/users", UserController, only: [:index, :create]
+    resources "/categories", CategoryController, only: [:index, :create, :show]
+    resources "/hangouts", HangoutController, only: [:index, :show, :create]
   end
 
   # Enables LiveDashboard only for development

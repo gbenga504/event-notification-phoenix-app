@@ -1,0 +1,1 @@
+<p><%= @hangout.message %>. Click <%= link "here", to: @hangout.link %> to see more about this hangout.</p>

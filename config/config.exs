@@ -8,7 +8,9 @@
 use Mix.Config
 
 config :notification_api,
-  ecto_repos: [NotificationApi.Repo]
+  ecto_repos: [NotificationApi.Repo],
+  sid: "AC184653aab61915644b726ac59db38ff4",
+  token: "170a64b6dfa4c2f8fa327fd5c8da5f63"
 
 # Configures the endpoint
 config :notification_api, NotificationApiWeb.Endpoint,
