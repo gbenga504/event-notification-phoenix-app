@@ -44,7 +44,8 @@ defmodule NotificationApi.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:bamboo, "~> 1.6"},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:distillery, "~> 2.1", runtime: false}
     ]
   end
 
